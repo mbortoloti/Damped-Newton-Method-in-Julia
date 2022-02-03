@@ -23,7 +23,7 @@ using LinearAlgebra;
     ∇f(x) = -2.0 * A * x;
 
 # Orthogonal projection function
-    proj(u,x) = (I - x * x') * u;
+    proj(u,x) = (Matrix{Float64}(I, n, n) - x * x') * u;
 
 # Riemannian gradient of f
     gradf(x) = proj(∇f(x),x);
