@@ -12,7 +12,6 @@ include("damped_rayleigh.jl");
 # Dimension setting
     n = 2;
 
-
 # Symmetric positive definite matrix setting
     rng = MersenneTwister(1234);
     A = randn(rng,n,n);
@@ -31,10 +30,13 @@ include("damped_rayleigh.jl");
 # Riemannian gradient of f
     gradf(x) = proj(∇f(x),x);
 
+# Riemannian hessian of f
+    hessf(x) = -2 * (I - x * x') * (A - x' * A * x * I);
+    
 # Retraction setting
     function ret(x,v)
         xpv = x + v;
-        return xpv / norm(xpv);
+        return(xpv / norm(xpv));
     end
 
 
@@ -43,5 +45,7 @@ include("damped_rayleigh.jl");
     ϵ = 1.e-7;
     x0 = rand(n);
 
-    damped_rayleigh(x0,maxiter,ϵ);
+   s =  damped_rayleigh(x0,maxiter,ϵ);
+
+   println("End of processing!")
 
