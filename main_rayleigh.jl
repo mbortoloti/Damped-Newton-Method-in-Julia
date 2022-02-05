@@ -43,9 +43,9 @@ include("damped_rayleigh.jl");
 
     maxiter = 100;
     ϵ = 1.e-7;
-    x0 = rand(n);
+    x0 = rand(rng,n);
 
-   s =  damped_rayleigh(x0,maxiter,ϵ);
+    iter,x,info =  damped_rayleigh(x0,maxiter,ϵ);
 
    println("End of processing!")
 
