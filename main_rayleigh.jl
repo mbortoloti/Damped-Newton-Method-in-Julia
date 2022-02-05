@@ -18,7 +18,7 @@ include("damped_rayleigh.jl");
 
 
 # Dimension setting
-    n = 10;
+    n = 5;
 
 # Symmetric positive definite matrix setting
     rng = MersenneTwister(1234);
@@ -46,8 +46,6 @@ include("damped_rayleigh.jl");
         xpv = x + v;
         return(xpv / norm(xpv));
     end
-
-
 
     maxiter = 100;
     ϵ = 1.e-7;
