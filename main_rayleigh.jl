@@ -10,7 +10,7 @@ using Printf;
 include("damped_rayleigh.jl");
 
 # Dimension setting
-    n = 2;
+    n = 100;
 
 # Symmetric positive definite matrix setting
     rng = MersenneTwister(1234);
@@ -19,10 +19,10 @@ include("damped_rayleigh.jl");
     A = A + n * I;
     
 # Rayleigh quotient definition
-    f(x) = - x' * A * x;
+    f(x) =  x' * A * x;
 
 # Euclidean gradient of f
-    ∇f(x) = -2.0 * A * x;
+    ∇f(x) = 2.0 * A * x;
 
 # Orthogonal projection function
     proj(u,x) = (I - x * x') * u;
@@ -31,7 +31,7 @@ include("damped_rayleigh.jl");
     gradf(x) = proj(∇f(x),x);
 
 # Riemannian hessian of f
-    hessf(x) = -2 * (I - x * x') * (A - x' * A * x * I);
+    hessf(x) = 2 * (I - x * x') * (A - x' * A * x * I);
     
 # Retraction setting
     function ret(x,v)
@@ -43,7 +43,7 @@ include("damped_rayleigh.jl");
 
     maxiter = 100;
     ϵ = 1.e-7;
-    x0 = rand(rng,n);
+    x0 = rand(n);
 
     iter,x,info =  damped_rayleigh(x0,maxiter,ϵ);
 
