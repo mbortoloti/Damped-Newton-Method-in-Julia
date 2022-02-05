@@ -16,6 +16,12 @@ using Printf;
 
 include("damped_rayleigh.jl");
 
+# Struct for output code
+mutable struct output
+    iter  :: Int
+    error :: Int
+    etime :: Float64
+end
 
 # Dimension setting
     n = 5;
@@ -51,7 +57,10 @@ include("damped_rayleigh.jl");
     ϵ = 1.e-7;
     x0 = rand(rng,n);
 
-    iter,x,info =  damped_rayleigh(x0,maxiter,ϵ);
-
-   println("End of processing!")
+    iter,info =  damped_rayleigh(x0,maxiter,ϵ);
+    if info.error > 0
+        println("An error may be ocurred...");
+    else
+       println("End of processing!");
+    end
 

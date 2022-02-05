@@ -3,17 +3,22 @@
 #
 
 function damped_rayleigh(x,maxiter,ϵ)
-
     iter = 0;
     info_error = 0;
     dir = "   ";
-    println("Iteration      || Grad f(x) ||   Descent direction");
+    stp = 0.0;
+
+    ng = norm(gradf(x));
+    println("Iteration        || Grad f(x) ||      Descent direction       Step lenght");
+    @printf("%5d        %18.14e        %5s\n",iter,ng,dir);
+    t0 = time();
+    
     while true
-        ng = norm(gradf(x));
-        @printf("%5d      %18.14e     %5s\n",iter,ng,dir);
         if ng < ϵ
+            etime = time() - t0;
             println("Solution was found!");
-            return(iter,x,info_error);
+            info = output(iter,info_error,etime);
+            return(x,info);
         end
         
         iter = iter + 1;
@@ -21,7 +26,8 @@ function damped_rayleigh(x,maxiter,ϵ)
         if iter > maxiter
             info_error = 1;
             println("Maximum number of iterations was achieved. Stopping...");
-            return(iter,x,info_error);
+            info = output(iter,info_error,etime);
+            return(x,info);
         end
 
 
@@ -46,8 +52,14 @@ function damped_rayleigh(x,maxiter,ϵ)
 
         # Updating x
         x = ret(x,stp * v);
+
+        ng = norm(gradf(x));
+        @printf("%5d        %18.14e        %5s               %12.5e\n",iter,ng,dir,stp);
+        
+
     end
-    return(iter,x,info_error);
+
+
 end
 
 
