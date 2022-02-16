@@ -24,7 +24,7 @@ mutable struct output
 end
 
 # Dimension setting
-    n = 5;
+    n = 1000;
 
 # Symmetric positive definite matrix setting
     rng = MersenneTwister(1234);
